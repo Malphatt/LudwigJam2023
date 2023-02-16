@@ -4,8 +4,6 @@
  
  Inspiration taken from Jump King and other Jump King style games such as Pogostuck.
  
- Credits:
- 
   Programmers:
  
     Alex "Dicko" Dickinson
