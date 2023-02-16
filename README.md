@@ -8,7 +8,7 @@
  
  Programmers:
  
-  Alex "Dicko" Dickinson
+  Alex "Dicko" Dickinson\n
   
   Matthew "Malphatt" Freeman
   
