@@ -6,12 +6,12 @@
  
  Credits:
  
- Programmers:
+  Programmers:
  
     Alex "Dicko" Dickinson
   
     Matthew "Malphatt" Freeman
   
- Art:
+  Art:
  
-  TBD
+    TBD
