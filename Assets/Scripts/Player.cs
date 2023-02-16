@@ -50,7 +50,7 @@ public class Player : MonoBehaviour {
     void OnJump() {
         if (!jumping) {
             jumping = true;
-            _rb.velocity = new Vector2(10, 20);
+            _rb.velocity = new Vector2(10 * _moveDirection.x, 20);
         }
     }
 

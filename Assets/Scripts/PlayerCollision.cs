@@ -9,26 +9,28 @@ public class PlayerCollision : MonoBehaviour {
     bool touchingWall;
 
     void OnTriggerEnter2D(Collider2D collision) {
-        if (IsSideCollider) {
-            Debug.Log("Side Collider Entered");
-            if (!touchingWall) {
-                if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")) {
-                    touchingWall = true;
-                    _Player.OnBonk();
+        if (collision.gameObject != _Player.gameObject) {
+            if (IsSideCollider) {
+                if (!touchingWall) {
+                    if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+                        touchingWall = true;
+                        _Player.OnBonk();
+                    }
                 }
-            }
-        } else {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")) {
-                _Player.ResetJump();
+            } else {
+                if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+                    _Player.ResetJump();
+                }
             }
         }
     }
 
     void OnTriggerExit2D(Collider2D collision) {
-        if (IsSideCollider) {
-            Debug.Log("Side Collider Exited");
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")) {
-                touchingWall = false;
+        if (collision.gameObject != _Player.gameObject) {
+            if (IsSideCollider) {
+                if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+                    touchingWall = false;
+                }
             }
         }
     }
