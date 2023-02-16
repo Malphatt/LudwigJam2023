@@ -12,15 +12,15 @@ public class Player : MonoBehaviour {
 
     // Rigidbody and Colliders
     Rigidbody2D _rb;
+    public Collider2D _groundCollider;
+    bool grounded;
+    bool sloped;
 
     // Movement
     float speed = 5f;
-    bool jumping;
 
     void Awake() {
         _rb = GetComponent<Rigidbody2D>();
-        jumping = false;
-
         _PlayerInput = new PlayerInput();
     }
 
@@ -35,26 +35,42 @@ public class Player : MonoBehaviour {
 
     void Update() {
         _moveDirection = _move.ReadValue<Vector2>();
+        
+    // Check if grounded
+        Collider2D[] ground = Physics2D.OverlapBoxAll(_groundCollider.bounds.center, _groundCollider.bounds.size, 0);
+        foreach (Collider2D groundCollider in ground) {
+            if (groundCollider.gameObject != gameObject) {
+                if (groundCollider.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+                    grounded = true;
+                } else {
+                    grounded = false;
+                }
+            }
+        }
+
     }
 
     void FixedUpdate() {
-        if (!jumping) {
+        if (grounded) {
             _rb.velocity = new Vector2(_moveDirection.x * speed, _rb.velocity.y);
         }
     }
 
-    public void ResetJump() {
-        jumping = false;
-    }
-
     void OnJump() {
-        if (!jumping) {
-            jumping = true;
-            _rb.velocity = new Vector2(10 * _moveDirection.x, 20);
+        if (grounded) {
+            _rb.velocity = new Vector2(30 * _moveDirection.x, 25);
         }
     }
 
     public void OnBonk() {
-        _rb.velocity = new Vector2(-_rb.velocity.x, _rb.velocity.y);
+        _rb.velocity = new Vector2(-_rb.velocity.x/2, _rb.velocity.y/2);
+    }
+
+    public bool IsGounded() {
+        return grounded;
+    }
+
+    public void Sloped(bool sloped) {
+        this.sloped = sloped;
     }
 }
