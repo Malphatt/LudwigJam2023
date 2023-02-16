@@ -8,9 +8,9 @@
  
  Programmers:
  
-  Alex "Dicko" Dickinson
+    Alex "Dicko" Dickinson
   
-  Matthew "Malphatt" Freeman
+    Matthew "Malphatt" Freeman
   
  Art:
  
