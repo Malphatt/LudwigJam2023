@@ -8,6 +8,7 @@ public class Player : MonoBehaviour {
     // Input
     public PlayerInput _PlayerInput;
     InputAction _move;
+    InputAction _jump;
     Vector2 _moveDirection;
 
     // Rigidbody and Colliders
@@ -20,7 +21,11 @@ public class Player : MonoBehaviour {
     float speed = 3f;
     float jumpPower = 10f;
     float startJumpTime;
+    float maxHoldTime = 1.25f;
+
     bool jumping;
+    bool jumpButtonRelease;
+    bool jumped;
 
     void Awake() {
         _rb = GetComponent<Rigidbody2D>();
@@ -29,25 +34,21 @@ public class Player : MonoBehaviour {
 
     void OnEnable() {
         _move = _PlayerInput.Player.Move;
+        _jump = _PlayerInput.Player.Jump;
         _move.Enable();
+        _jump.Enable();
     }
 
     void OnDisable() {
         _move.Disable();
+        _jump.Disable();
     }
 
     void Update() {
         _moveDirection = _move.ReadValue<Vector2>();
 
-        // vary jump height dependent on how long space is pressed for
-        if (jumping) {
-            if (Time.time - startJumpTime < 0.2f) {
-                Debug.Log("Less than 0.2s");
-                // _rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y * 0.5f);
-            } else {
-                jumping = false;
-            }
-        }
+        _jump.performed += ctx => Jump(true);
+        _jump.canceled += ctx => Jump(false);
         
     // Check if grounded
         if (!jumping) {
@@ -70,20 +71,47 @@ public class Player : MonoBehaviour {
         if (grounded && !jumping) {
             _rb.velocity = new Vector2(_moveDirection.x * speed, _rb.velocity.y);
         }
+
+        // Vary jumpPower dependent on how long space is pressed for
+        if (jumping) {
+            if (!jumped) { // Allows for a single jump after releasing the jump button or after the max hold time
+                if (Time.time - startJumpTime < maxHoldTime) { // If the jump button is held for less than the max hold time
+                    if (jumpButtonRelease) { // If the jump button is released
+                        jumped = true;
+                        float jumpTimeNormalised = (Time.time - startJumpTime) / maxHoldTime; // Normalise the time to 0-1
+                        float jumpHoldPower = convertJumpPower(jumpTimeNormalised) * jumpPower;
+                        _rb.velocity = new Vector2(jumpHoldPower * _moveDirection.x, jumpHoldPower * 2.25f);
+                    }
+                } else { // If the jump button is held for more than the max hold time
+                    jumped = true;
+                    _rb.velocity = new Vector2(jumpPower * _moveDirection.x, jumpPower * 2.25f);
+                }
+            }
+        }
     }
 
-    void OnJump() {
-        if (grounded) {
-            if (!jumping) {
-                jumping = true;
-                startJumpTime = Time.time;
-                _rb.velocity = new Vector2(jumpPower * _moveDirection.x, jumpPower * 2.25f);
+    void Jump(bool jump) {
+        if (jump) {
+            if (grounded) {
+                if (!jumping) {
+                    jumping = true;
+                    jumpButtonRelease = false;
+                    jumped = false;
+                    _rb.velocity = new Vector2(0, _rb.velocity.y);
+                    startJumpTime = Time.time;
+                }
             }
+        } else {
+            jumpButtonRelease = true;
         }
     }
 
     public void OnBonk() {
         _rb.velocity = new Vector2(-_rb.velocity.x/2, _rb.velocity.y/2);
+    }
+
+    public void OnLand() {
+        jumping = false;
     }
 
     public bool IsGounded() {
@@ -92,5 +120,11 @@ public class Player : MonoBehaviour {
 
     public void Sloped(bool sloped) {
         this.sloped = sloped;
+    }
+
+    float convertJumpPower(float normalisedJumpTime) {
+        // Put normalised value into logarithmic function to figure out power
+        // return log[101](100x +1)
+        return Mathf.Log(100 * normalisedJumpTime + 1, 101);
     }
 }
