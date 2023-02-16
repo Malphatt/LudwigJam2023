@@ -6,7 +6,6 @@ public class PlayerCollision : MonoBehaviour {
 
     public Player _Player;
 
-    bool walled;
     bool sloped;
 
     void OnTriggerEnter2D(Collider2D collision) {
@@ -17,7 +16,6 @@ public class PlayerCollision : MonoBehaviour {
             }
             if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") && collision.gameObject.tag != "Slope") {
                 if (!_Player.IsGounded()) {
-                    walled = true;
                     _Player.OnBonk();
                 }
             }
@@ -29,9 +27,6 @@ public class PlayerCollision : MonoBehaviour {
             if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") && collision.gameObject.tag == "Slope") {
                 sloped = false;
                 _Player.Sloped(sloped);
-            }
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") && collision.gameObject.tag == "Slope") {
-                walled = false;
             }
         }
     }

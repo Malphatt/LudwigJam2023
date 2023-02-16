@@ -626,6 +626,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1009985235}
   - component: {fileID: 1009985237}
+  - component: {fileID: 1009985238}
   m_Layer: 0
   m_Name: Feet
   m_TagString: Untagged
@@ -674,6 +675,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6, y: 0.05}
   m_EdgeRadius: 0
+--- !u!114 &1009985238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009985234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba0e9fbe8e236b4a87d4ded9273cdac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Player: {fileID: 1793949200}
 --- !u!1 &1165781991
 GameObject:
   m_ObjectHideFlags: 0
