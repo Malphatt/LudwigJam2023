@@ -10,7 +10,6 @@ public class PlayerCollision : MonoBehaviour {
     bool sloped;
 
     void OnTriggerEnter2D(Collider2D collision) {
-
         if (collision.gameObject != _Player.gameObject) {
             if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") && collision.gameObject.tag == "Slope") {
                 sloped = true;
