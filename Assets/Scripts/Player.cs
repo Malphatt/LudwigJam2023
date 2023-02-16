@@ -17,7 +17,10 @@ public class Player : MonoBehaviour {
     bool sloped;
 
     // Movement
-    float speed = 5f;
+    float speed = 3f;
+    float jumpPower = 10f;
+    float startJumpTime;
+    bool jumping;
 
     void Awake() {
         _rb = GetComponent<Rigidbody2D>();
@@ -35,30 +38,47 @@ public class Player : MonoBehaviour {
 
     void Update() {
         _moveDirection = _move.ReadValue<Vector2>();
+
+        // vary jump height dependent on how long space is pressed for
+        if (jumping) {
+            if (Time.time - startJumpTime < 0.2f) {
+                Debug.Log("Less than 0.2s");
+                // _rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y * 0.5f);
+            } else {
+                jumping = false;
+            }
+        }
         
     // Check if grounded
-        Collider2D[] ground = Physics2D.OverlapBoxAll(_groundCollider.bounds.center, _groundCollider.bounds.size, 0);
-        foreach (Collider2D groundCollider in ground) {
-            if (groundCollider.gameObject != gameObject) {
-                if (groundCollider.gameObject.layer == LayerMask.NameToLayer("Ground")) {
-                    grounded = true;
-                } else {
-                    grounded = false;
+        if (!jumping) {
+            Collider2D[] ground = Physics2D.OverlapBoxAll(_groundCollider.bounds.center, _groundCollider.bounds.size, 0);
+            
+            foreach (Collider2D groundCollider in ground) {
+                if (groundCollider.gameObject != gameObject) {
+                    if (groundCollider.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+                        grounded = true;
+                        jumping = false;
+                    } else {
+                        grounded = false;
+                    }
                 }
             }
         }
-
     }
 
     void FixedUpdate() {
-        if (grounded) {
+        if (grounded && !jumping) {
             _rb.velocity = new Vector2(_moveDirection.x * speed, _rb.velocity.y);
         }
     }
 
     void OnJump() {
         if (grounded) {
-            _rb.velocity = new Vector2(30 * _moveDirection.x, 25);
+            if (!jumping) {
+                jumping = true;
+                startJumpTime = Time.time;
+                _rb.velocity = new Vector2(jumpPower * _moveDirection.x, jumpPower * 2.25f);
+            }
         }
     }
 
