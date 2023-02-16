@@ -55,15 +55,15 @@ public class Player : MonoBehaviour {
             Collider2D[] ground = Physics2D.OverlapBoxAll(_groundCollider.bounds.center, _groundCollider.bounds.size, 0);
             
             foreach (Collider2D groundCollider in ground) {
-                if (groundCollider.gameObject != gameObject) {
+                if (groundCollider.gameObject.tag != "Player") {
                     if (groundCollider.gameObject.layer == LayerMask.NameToLayer("Ground")) {
                         grounded = true;
                         jumping = false;
-                    } else {
-                        grounded = false;
                     }
                 }
             }
+        } else {
+            grounded = false;
         }
     }
 
