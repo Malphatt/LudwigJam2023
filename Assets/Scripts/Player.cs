@@ -45,10 +45,6 @@ public class Player : MonoBehaviour {
     }
 
     void Update() {
-
-        Debug.Log("Grounded: " + grounded);
-        Debug.Log("Sloped: " + sloped);
-
         _moveDirection = _move.ReadValue<Vector2>();
 
         _jump.performed += ctx => Jump(true);
@@ -85,14 +81,36 @@ public class Player : MonoBehaviour {
             if (!jumped) { // Allows for a single jump after releasing the jump button or after the max hold time
                 if (Time.time - startJumpTime < maxHoldTime) { // If the jump button is held for less than the max hold time
                     if (jumpButtonRelease) { // If the jump button is released
-                        jumped = true;
-                        float jumpTimeNormalised = (Time.time - startJumpTime) / maxHoldTime; // Normalise the time to 0-1
-                        float jumpHoldPower = convertJumpPower(jumpTimeNormalised) * jumpPower;
-                        _rb.velocity = new Vector2(jumpHoldPower * _moveDirection.x, jumpHoldPower * 2.25f);
+
+                        Collider2D[] ground = Physics2D.OverlapBoxAll(_groundCollider.bounds.center, _groundCollider.bounds.size, 0);
+            
+                        foreach (Collider2D groundCollider in ground) {
+                            if (groundCollider.gameObject.tag != "Player") {
+                                if (groundCollider.gameObject.layer == LayerMask.NameToLayer("Ground") && groundCollider.gameObject.tag != "Slope") {
+
+                                    jumped = true;
+                                    float jumpTimeNormalised = (Time.time - startJumpTime) / maxHoldTime; // Normalise the time to 0-1
+                                    float jumpHoldPower = convertJumpPower(jumpTimeNormalised) * jumpPower;
+                                    _rb.velocity = new Vector2(jumpHoldPower * _moveDirection.x, jumpHoldPower * 2.25f);
+                                } else {
+                                    jumped = true;
+                                }
+                            }
+                        }
                     }
                 } else { // If the jump button is held for more than the max hold time
-                    jumped = true;
-                    _rb.velocity = new Vector2(jumpPower * _moveDirection.x, jumpPower * 2.25f);
+                    Collider2D[] ground = Physics2D.OverlapBoxAll(_groundCollider.bounds.center, _groundCollider.bounds.size, 0);
+            
+                    foreach (Collider2D groundCollider in ground) {
+                        if (groundCollider.gameObject.tag != "Player") {
+                            if (groundCollider.gameObject.layer == LayerMask.NameToLayer("Ground") && groundCollider.gameObject.tag != "Slope") {
+                                jumped = true;
+                                _rb.velocity = new Vector2(jumpPower * _moveDirection.x, jumpPower * 2.25f);
+                            } else {
+                                jumped = true;
+                            }
+                        }
+                    }
                 }
             }
         }
