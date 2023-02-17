@@ -45,6 +45,10 @@ public class Player : MonoBehaviour {
     }
 
     void Update() {
+
+        Debug.Log("Grounded: " + grounded);
+        Debug.Log("Sloped: " + sloped);
+
         _moveDirection = _move.ReadValue<Vector2>();
 
         _jump.performed += ctx => Jump(true);
@@ -56,10 +60,12 @@ public class Player : MonoBehaviour {
             
             foreach (Collider2D groundCollider in ground) {
                 if (groundCollider.gameObject.tag != "Player") {
-                    if (groundCollider.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+                    if (groundCollider.gameObject.layer == LayerMask.NameToLayer("Ground") && groundCollider.gameObject.tag != "Slope") {
                         grounded = true;
                         jumping = false;
                     }
+                } else {
+                    grounded = false;
                 }
             }
         } else {
@@ -68,8 +74,10 @@ public class Player : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (grounded && !jumping) {
-            _rb.velocity = new Vector2(_moveDirection.x * speed, _rb.velocity.y);
+        if ((sloped && grounded) || (!sloped && grounded)) {
+            if (grounded && !jumping) {
+                _rb.velocity = new Vector2(_moveDirection.x * speed, _rb.velocity.y);
+            }
         }
 
         // Vary jumpPower dependent on how long space is pressed for
