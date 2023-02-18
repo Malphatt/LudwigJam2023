@@ -143,6 +143,20 @@ public class Player : MonoBehaviour {
         return grounded;
     }
 
+    public bool IsStationary() {
+        return _moveDirection.x == 0;
+    }
+    
+    public int LastMovingDirection() { // 0 = not moving, 1 = moving right, -1 = moving left
+        if (_moveDirection.x > 0) {
+            return 1;
+        } else if (_moveDirection.x < 0) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
+
     public void Sloped(bool sloped) {
         this.sloped = sloped;
     }
