@@ -125,8 +125,6 @@ public class Player : MonoBehaviour {
             if (groundCollider.gameObject.tag != "Player") {
                 if (groundCollider.gameObject.layer == LayerMask.NameToLayer("Ground") && groundCollider.gameObject.tag != "Slope") {
                     return true;
-                } else {
-                    return false;
                 }
             }
         }
