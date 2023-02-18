@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 5703045520178806075}
   - component: {fileID: 5703045520178806074}
   - component: {fileID: 5703045520178806077}
-  - component: {fileID: 5703045520178806073}
-  - component: {fileID: 1160831731681799119}
+  - component: {fileID: 2081275463389415355}
+  - component: {fileID: -5523296918807463921}
   m_Layer: 0
-  m_Name: Rubber Band
+  m_Name: Yarn Ball
   m_TagString: Balls 0.0
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ced76b806e7af164cb3103329a419c6f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2b4a624d6e8cf5b4183e5c45439a465a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,29 +99,16 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 1.2293427
+  m_Mass: 1.1919926
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: 8aa0b901ece7a7c4fa3b14f8d3ded3c2, type: 2}
+  m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &5703045520178806073
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5703045520178806076}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7f10380e22030f43b46d267e4d21959, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitCounter: 0
---- !u!58 &1160831731681799119
+--- !u!58 &2081275463389415355
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,6 +121,18 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.017998695}
+  m_Offset: {x: 0.048066735, y: 0}
   serializedVersion: 2
-  m_Radius: 0.31277466
+  m_Radius: 0.30798662
+--- !u!114 &-5523296918807463921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5703045520178806076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dfbb298d3ff04a4bad3b15f488d593f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
