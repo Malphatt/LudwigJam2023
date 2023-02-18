@@ -11,6 +11,9 @@ public class Player : MonoBehaviour {
     InputAction _jump;
     Vector2 _moveDirection;
 
+    public GameObject camera;
+    private Vector3 currentZone;
+
     // Rigidbody and Colliders
     Rigidbody2D _rb;
     public Collider2D _groundCollider;
@@ -30,6 +33,7 @@ public class Player : MonoBehaviour {
     void Awake() {
         _rb = GetComponent<Rigidbody2D>();
         _PlayerInput = new PlayerInput();
+        currentZone = new Vector3(0, 4.56f, -10);
     }
 
     void OnEnable() {
@@ -66,6 +70,21 @@ public class Player : MonoBehaviour {
             }
         } else {
             grounded = false;
+        }
+
+        //Move camera to current zone if not empty
+        if (currentZone != null)
+        {
+            currentZone = new Vector3(currentZone.x, currentZone.y, -10);
+            camera.transform.position = Vector3.MoveTowards(camera.transform.position, currentZone, 20f * Time.deltaTime);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Zone")
+        {
+            currentZone = collision.transform.position;
         }
     }
 
