@@ -53,6 +53,8 @@ public class PlayerAnimator : MonoBehaviour {
                 timeLastMoving = Time.time;
                 GetComponent<SpriteRenderer>().sprite = _Walk[frame];
             }
+        } else {
+            timeLastMoving = Time.time;
         }
         if (_Player.LastMovingDirection() == 1) { // Make sprite face right
             GetComponent<SpriteRenderer>().flipX = false;
