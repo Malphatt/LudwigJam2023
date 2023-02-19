@@ -18,7 +18,7 @@ public class Player : MonoBehaviour {
     // Rigidbody and Colliders
     Rigidbody2D _rb;
     public Collider2D _groundCollider;
-    bool grounded;
+    public bool grounded;
     bool sloped;
 
     // Movement
@@ -27,7 +27,7 @@ public class Player : MonoBehaviour {
     float startJumpTime;
     float maxHoldTime = 1.25f;
 
-    bool jumping;
+    public bool jumping;
     bool jumpButtonRelease;
     bool jumped;
 
@@ -61,20 +61,11 @@ public class Player : MonoBehaviour {
         
     // Check if grounded
         if (!jumping) {
-            Collider2D[] ground = Physics2D.OverlapBoxAll(_groundCollider.bounds.center, _groundCollider.bounds.size, 0);
-            
-            foreach (Collider2D groundCollider in ground) {
-                if (groundCollider.gameObject.tag != "Player") {
-                    if (groundCollider.gameObject.layer == LayerMask.NameToLayer("Ground") && groundCollider.gameObject.tag != "Slope") {
-                        grounded = true;
-                        jumping = false;
-                    }
-                } else {
-                    grounded = false;
-                }
+            if (groundCheck()) {
+                grounded = true;
+            } else {
+                grounded = false;
             }
-        } else {
-            grounded = false;
         }
 
         //Move camera to current zone if not empty
@@ -102,7 +93,7 @@ public class Player : MonoBehaviour {
 
 
     }
-    private void OnTriggeExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Zone")
         {
@@ -149,6 +140,7 @@ public class Player : MonoBehaviour {
         if (jump) {
             if (grounded) {
                 if (!jumping) {
+                    grounded = false;
                     jumping = true;
                     jumpButtonRelease = false;
                     jumped = false;
@@ -165,10 +157,8 @@ public class Player : MonoBehaviour {
         Collider2D[] ground = Physics2D.OverlapBoxAll(_groundCollider.bounds.center, _groundCollider.bounds.size, 0);
             
         foreach (Collider2D groundCollider in ground) {
-            if (groundCollider.gameObject.tag != "Player") {
-                if (groundCollider.gameObject.layer == LayerMask.NameToLayer("Ground") && groundCollider.gameObject.tag != "Slope") {
-                    return true;
-                }
+            if (groundCollider.gameObject.layer == LayerMask.NameToLayer("Ground") && groundCollider.gameObject.tag != "Slope") {
+                return true;
             }
         }
         return false;
