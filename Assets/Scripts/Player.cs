@@ -12,7 +12,8 @@ public class Player : MonoBehaviour {
     Vector2 _moveDirection;
 
     public GameObject mainCamera;
-    private Vector3 currentZone;
+    private GameObject currentZone;
+    private GameObject previousZone;
 
     // Rigidbody and Colliders
     Rigidbody2D _rb;
@@ -30,25 +31,29 @@ public class Player : MonoBehaviour {
     bool jumpButtonRelease;
     bool jumped;
 
-    void Awake() {
+    void Awake() 
+    {
         _rb = GetComponent<Rigidbody2D>();
         _PlayerInput = new PlayerInput();
-        currentZone = new Vector3(0, 4.56f, -10);
+        currentZone = GameObject.Find("Zone 1");
     }
 
-    void OnEnable() {
+    void OnEnable() 
+    {
         _move = _PlayerInput.Player.Move;
         _jump = _PlayerInput.Player.Jump;
         _move.Enable();
         _jump.Enable();
     }
 
-    void OnDisable() {
+    void OnDisable() 
+    {
         _move.Disable();
         _jump.Disable();
     }
 
-    void Update() {
+    void Update() 
+    {
         _moveDirection = _move.ReadValue<Vector2>();
 
         _jump.performed += ctx => Jump(true);
@@ -75,8 +80,8 @@ public class Player : MonoBehaviour {
         //Move camera to current zone if not empty
         if (currentZone != null)
         {
-            currentZone = new Vector3(currentZone.x, currentZone.y, -10);
-            mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, currentZone, 20f * Time.deltaTime);
+            Vector3 travelpoint = new Vector3(currentZone.transform.position.x, currentZone.transform.position.y, -10);
+            mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, travelpoint, 20f * Time.deltaTime);
         }
     }
 
@@ -84,9 +89,26 @@ public class Player : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Zone")
         {
-            currentZone = collision.transform.position;
+            //If previous zone is empty, set it to current zone
+            if (previousZone == null)
+            {
+                previousZone = collision.gameObject;
+            }
+            previousZone = currentZone;
+            currentZone = collision.gameObject;
             //Call set zone function in game manager
             GameObject.Find("GameManager").GetComponent<GameManager>().setZone(collision.gameObject);
+        }
+
+
+    }
+    private void OnTriggeExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Zone")
+        {
+            currentZone = previousZone;
+            //Call set zone function in game manager
+            GameObject.Find("GameManager").GetComponent<GameManager>().setZone(previousZone.gameObject);
         }
     }
 
