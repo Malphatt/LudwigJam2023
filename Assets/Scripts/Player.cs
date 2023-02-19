@@ -11,7 +11,7 @@ public class Player : MonoBehaviour {
     InputAction _jump;
     Vector2 _moveDirection;
 
-    public GameObject camera;
+    public GameObject mainCamera;
     private Vector3 currentZone;
 
     // Rigidbody and Colliders
@@ -76,7 +76,7 @@ public class Player : MonoBehaviour {
         if (currentZone != null)
         {
             currentZone = new Vector3(currentZone.x, currentZone.y, -10);
-            camera.transform.position = Vector3.MoveTowards(camera.transform.position, currentZone, 20f * Time.deltaTime);
+            mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, currentZone, 20f * Time.deltaTime);
         }
     }
 
@@ -85,6 +85,8 @@ public class Player : MonoBehaviour {
         if (collision.gameObject.tag == "Zone")
         {
             currentZone = collision.transform.position;
+            //Call set zone function in game manager
+            GameObject.Find("GameManager").GetComponent<GameManager>().setZone(collision.gameObject);
         }
     }
 

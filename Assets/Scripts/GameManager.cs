@@ -9,11 +9,17 @@ public class GameManager : MonoBehaviour
     public float accumulatedTime;
     private blinkPlatform[] blinkPlatforms;
 
-    void Start()
+    public GameObject zone;
+    public void setZone(GameObject zone)
+    {
+        this.zone = zone;
+    }
+
+    void Awake()
     {
         //Add all platform prefabs to the list
         blinkPlatforms = FindObjectsOfType<blinkPlatform>();
-        
+        zone.GetComponent<AudioSource>().Play();
     }
     // Update is called once per frame
     void Update()
@@ -30,6 +36,13 @@ public class GameManager : MonoBehaviour
             {
                 platform.toggleHitbox();
             }
+        }
+
+        //Every 16 seconds
+        if (accumulatedTime % 16 < Time.deltaTime)
+        {
+            //Play zone's audio source
+            zone.GetComponent<AudioSource>().Play();
         }
     }
 }
