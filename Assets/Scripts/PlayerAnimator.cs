@@ -15,6 +15,11 @@ public class PlayerAnimator : MonoBehaviour {
     public Sprite[] _Idle = new Sprite[8];
     public Sprite[] _Walk = new Sprite[8];
 
+    float idleTimer = 10.0f;
+    public Sprite[] _IdleTooLong = new Sprite[8];
+
+    float timeLastMoving;
+
 
     void OnEnable() {
         StartCoroutine(IncrementFrame());
@@ -38,8 +43,14 @@ public class PlayerAnimator : MonoBehaviour {
     void Update() {
         if (_Player.IsGounded()) {
             if (_Player.IsStationary()) {
-                GetComponent<SpriteRenderer>().sprite = _Idle[frame];
+                if (Time.time - timeLastMoving > idleTimer) { // If player has been stationary for idleTimer seconds, show idle animation
+                    GetComponent<SpriteRenderer>().sprite = _IdleTooLong[frame];
+                }
+                 else { // If player has been stationary for less than idleTimer seconds, show idle animation
+                    GetComponent<SpriteRenderer>().sprite = _Idle[frame];
+                 }
             } else {
+                timeLastMoving = Time.time;
                 GetComponent<SpriteRenderer>().sprite = _Walk[frame];
             }
         }
