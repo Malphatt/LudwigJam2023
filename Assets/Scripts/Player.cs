@@ -69,39 +69,20 @@ public class Player : MonoBehaviour {
         }
 
         //Move camera to current zone if not empty
-        if (currentZone != null)
-        {
-            Vector3 travelpoint = new Vector3(currentZone.transform.position.x, currentZone.transform.position.y, -10);
-            mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, travelpoint, 20f * Time.deltaTime);
-        }
+        Vector3 travelpoint = new Vector3(currentZone.transform.position.x, currentZone.transform.position.y, -10);
+        mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, travelpoint, 20f * Time.deltaTime);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Zone")
         {
-            //If previous zone is empty, set it to current zone
-            if (previousZone == null)
-            {
-                previousZone = collision.gameObject;
-            }
-            previousZone = currentZone;
             currentZone = collision.gameObject;
             //Call set zone function in game manager
             GameObject.Find("GameManager").GetComponent<GameManager>().setZone(collision.gameObject);
         }
-
-
     }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Zone")
-        {
-            currentZone = previousZone;
-            //Call set zone function in game manager
-            GameObject.Find("GameManager").GetComponent<GameManager>().setZone(previousZone.gameObject);
-        }
-    }
+
 
     void FixedUpdate() {
         if ((sloped && grounded) || (!sloped && grounded)) {
