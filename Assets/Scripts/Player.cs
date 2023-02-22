@@ -100,7 +100,7 @@ public class Player : MonoBehaviour {
                             jumped = true;
                             float jumpTimeNormalised = (Time.time - startJumpTime) / maxHoldTime; // Normalise the time to 0-1
                             float jumpHoldPower = convertJumpPower(jumpTimeNormalised) * jumpPower;
-                            _rb.velocity = new Vector2(jumpHoldPower * _moveDirection.x, jumpHoldPower * 2.25f);
+                            _rb.velocity = new Vector2(jumpHoldPower * _moveDirection.x, jumpHoldPower * 2.0f);
                         } else {
                             jumped = true;
                         }
@@ -108,7 +108,7 @@ public class Player : MonoBehaviour {
                 } else { // If the jump button is held for more than the max hold time
                     if (groundCheck()) {
                         jumped = true;
-                        _rb.velocity = new Vector2(jumpPower * _moveDirection.x, jumpPower * 2.25f);
+                        _rb.velocity = new Vector2(jumpPower * _moveDirection.x, jumpPower * 2.0f);
                     } else {
                         jumped = true;
                     }
