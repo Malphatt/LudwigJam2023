@@ -9228,7 +9228,6 @@ GameObject:
   - component: {fileID: 1793949198}
   - component: {fileID: 1793949195}
   - component: {fileID: 1793949200}
-  - component: {fileID: 1793949201}
   - component: {fileID: 1793949202}
   m_Layer: 0
   m_Name: Player
@@ -9398,46 +9397,6 @@ MonoBehaviour:
   _groundCollider: {fileID: 1009985237}
   grounded: 0
   jumping: 0
---- !u!114 &1793949201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1793949193}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 440fd81f1db5b5b4597c214b0475cf57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _BPM: 60
-  _Idle:
-  - {fileID: 21300000, guid: 14b7195ad6b117047949916d6e47a1eb, type: 3}
-  - {fileID: 21300000, guid: 48fd5f94b17099a4a82a7300fb2b161c, type: 3}
-  - {fileID: 21300000, guid: f4125069c10f9f64fb16df5a42ad5f60, type: 3}
-  - {fileID: 21300000, guid: f767713831ba39c4d9a9dcc5ac56fc43, type: 3}
-  - {fileID: 21300000, guid: 1fc08cfa63e102a41be996dc15d0c1f5, type: 3}
-  - {fileID: 21300000, guid: b63c1933e4d17b84bb6608a39769a1cb, type: 3}
-  - {fileID: 21300000, guid: a9b09c5ee8aea894cb41e2122099cb52, type: 3}
-  - {fileID: 21300000, guid: fca5f6553c9282749b12ca2d5ae7d441, type: 3}
-  _Walk:
-  - {fileID: 21300000, guid: cfbf67383402dd049ad20487c6f55d44, type: 3}
-  - {fileID: 21300000, guid: dccf6ce1291f2e345b251117412297dc, type: 3}
-  - {fileID: 21300000, guid: 121644cd0807cd6469f87227326cbf53, type: 3}
-  - {fileID: 21300000, guid: 0307099d098c3ae4199891d820b9196a, type: 3}
-  - {fileID: 21300000, guid: c0240b231f3670646847b916fa2bfd71, type: 3}
-  - {fileID: 21300000, guid: 929ce653279d5474f87d7af3ff27da70, type: 3}
-  - {fileID: 21300000, guid: ba718503c3c46fa40a591d662db89d1c, type: 3}
-  - {fileID: 21300000, guid: d4914a243caca1b4e891360e46c6da72, type: 3}
-  _IdleTooLong:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!95 &1793949202
 Animator:
   serializedVersion: 5

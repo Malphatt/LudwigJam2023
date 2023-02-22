@@ -85,16 +85,6 @@ public class Player : MonoBehaviour {
             GetComponent<SpriteRenderer>().flipX = true;
         }
 
-        //If charging the jump, set animation controller, charging = true
-        if (jumping)
-        {
-            GetComponent<Animator>().SetBool("Charging", true);
-        }
-        else if (jumpButtonRelease)
-        {
-            GetComponent<Animator>().SetBool("Charging", false);
-        }
-
         //If walking, set animation controller, walking = true
         if (!IsStationary())
         {
@@ -103,6 +93,26 @@ public class Player : MonoBehaviour {
         else
         {
             GetComponent<Animator>().SetBool("Walking", false);
+        }
+        
+        //If charging the jump, set animation controller, charging = true
+        if (jumping && !jumped)
+        {
+            GetComponent<Animator>().SetBool("Charging", true);
+        }
+        else
+        {
+            GetComponent<Animator>().SetBool("Charging", false);
+        }
+        
+        //If grounded, set animation controller, MidAir = false
+        if (jumping && jumped)
+        {
+            GetComponent<Animator>().SetBool("MidAir", true);
+        }
+        else
+        {
+            GetComponent<Animator>().SetBool("MidAir", false);
         }
     }
 
