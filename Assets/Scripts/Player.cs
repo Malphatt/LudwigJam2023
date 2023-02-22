@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Player : MonoBehaviour {
 
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour {
     public bool jumping;
     bool jumpButtonRelease;
     bool jumped;
+       
 
     void Awake() 
     {
@@ -59,7 +61,7 @@ public class Player : MonoBehaviour {
         _jump.performed += ctx => Jump(true);
         _jump.canceled += ctx => Jump(false);
         
-    // Check if grounded
+        // Check if grounded
         if (!jumping) {
             if (groundCheck()) {
                 grounded = true;
@@ -71,6 +73,37 @@ public class Player : MonoBehaviour {
         //Move camera to current zone if not empty
         Vector3 travelpoint = new Vector3(currentZone.transform.position.x, currentZone.transform.position.y, -10);
         mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, travelpoint, 20f * Time.deltaTime);
+
+
+        //Updating the sprite
+        if (LastMovingDirection() == 1)
+        { // Make sprite face right
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+        else if (LastMovingDirection() == -1)
+        { // Make sprite face left
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+
+        //If charging the jump, set animation controller, charging = true
+        if (jumping)
+        {
+            GetComponent<Animator>().SetBool("Charging", true);
+        }
+        else if (jumpButtonRelease)
+        {
+            GetComponent<Animator>().SetBool("Charging", false);
+        }
+
+        //If walking, set animation controller, walking = true
+        if (!IsStationary())
+        {
+            GetComponent<Animator>().SetBool("Walking", true);
+        }
+        else
+        {
+            GetComponent<Animator>().SetBool("Walking", false);
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
