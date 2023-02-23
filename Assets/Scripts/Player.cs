@@ -21,6 +21,8 @@ public class Player : MonoBehaviour {
     public Collider2D _groundCollider;
     public bool grounded;
     bool sloped;
+    bool platformed;
+    bool rightPlatformed;
 
     // Movement
     float speed = 3f;
@@ -72,7 +74,7 @@ public class Player : MonoBehaviour {
 
         //Move camera to current zone if not empty
         Vector3 travelpoint = new Vector3(currentZone.transform.position.x, currentZone.transform.position.y, -10);
-        mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, travelpoint, 20f * Time.deltaTime);
+        mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, travelpoint, 40.0f * Time.deltaTime);
 
 
         //Updating the sprite
@@ -128,6 +130,15 @@ public class Player : MonoBehaviour {
 
 
     void FixedUpdate() {
+
+        if (platformed) {
+            if (rightPlatformed) {
+                transform.Translate(Vector2.right * 1.5f * Time.deltaTime);
+            } else {
+                transform.Translate(Vector2.left * 1.5f * Time.deltaTime);
+            }
+        }
+
         if ((sloped && grounded) || (!sloped && grounded)) {
             if (grounded && !jumping) {
                 _rb.velocity = new Vector2(_moveDirection.x * speed, _rb.velocity.y);
@@ -182,6 +193,12 @@ public class Player : MonoBehaviour {
             
         foreach (Collider2D groundCollider in ground) {
             if (groundCollider.gameObject.layer == LayerMask.NameToLayer("Ground") && groundCollider.gameObject.tag != "Slope") {
+                if (groundCollider.gameObject.tag == "Cloud") {
+                    platformed = true;
+                    rightPlatformed = groundCollider.transform.parent.GetComponent<cloud>().MovingRight;
+                } else {
+                    platformed = false;
+                }
                 return true;
             }
         }
