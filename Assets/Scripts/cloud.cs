@@ -5,36 +5,40 @@ using UnityEngine.Scripting.APIUpdating;
 
 public class cloud : MonoBehaviour
 {
-    // Cloud sprites
-    public Sprite[] cloudSprites;
-    public Transform end;
-    bool cloudmoving;
-    // Start is called before the first frame update
-    void Start()
+    
+    public bool MovingRight;
+    public Sprite[] CloudSprites;
+    public GameObject[] CloudColliders;
+    float cloudSpeed = 1.5f;
+    float cloudLifetime = 20.0f;
+    Rigidbody2D _rb;
+
+    void Awake()
     {
+        _rb = GetComponent<Rigidbody2D>();
         //Pick a random cloud sprite and apply it
-        GetComponent<SpriteRenderer>().sprite = cloudSprites[Random.Range(0, cloudSprites.Length)];
-        //Resize the collider2D to match sprite hitbox
-        GetComponent<BoxCollider2D>().size = GetComponent<SpriteRenderer>().sprite.bounds.size;
-        cloudmoving = false;
+        int cloud = Random.Range(0, CloudSprites.Length);
+        GetComponent<SpriteRenderer>().sprite = CloudSprites[cloud];
+
+        // Enable the collider for the cloud
+        CloudColliders[cloud].SetActive(true);
+
+        //Set the Lifetime of the cloud
+        Destroy(gameObject, cloudLifetime);
+
     }
         
     // Update is called once per frame
     void Update()
     {
-        //Call every two seconds
-        if (cloudmoving == false)
+        //Move the cloud
+        if (MovingRight)
         {
-            StartCoroutine(MoveCloud());
-            cloudmoving = false;
+            transform.Translate(Vector2.right * cloudSpeed * Time.deltaTime);
         }
-    }
-
-    IEnumerator MoveCloud()
-    {
-        cloudmoving = true;
-        //Slowly ove between start and end, then pingpong back again
-        transform.position = Vector3.Lerp(transform.position, end.position, Mathf.PingPong(Time.time, 2) / 2);
-        yield return new WaitForSeconds(20);
+        else
+        {
+            transform.Translate(Vector2.left * cloudSpeed * Time.deltaTime);
+        }
     }
 }

@@ -7,6 +7,7 @@ TagManager:
   - Slope
   - Balls 0.0
   - Zone
+  - Cloud
   layers:
   - Default
   - TransparentFX
