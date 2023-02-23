@@ -16,7 +16,9 @@ public class PlayerCollision : MonoBehaviour {
             }
             if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") && collision.gameObject.tag != "Slope") {
                 if (!_Player.IsGounded()) {
-                    _Player.OnBonk();
+                    if (collision.gameObject.tag != "Cloud") {
+                        _Player.OnBonk();
+                    }
                 }
             }
         }
