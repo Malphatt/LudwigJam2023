@@ -12,4 +12,8 @@
   
   Art:
  
-    TBD
+    Alex "Dicko" Dickinson
+    
+  Level Design
+  
+    Matthew "Malphatt" Freeman
