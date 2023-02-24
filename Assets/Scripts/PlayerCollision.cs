@@ -10,16 +10,22 @@ public class PlayerCollision : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject != _Player.gameObject) {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") && collision.gameObject.tag == "Slope") {
-                sloped = true;
-                _Player.Sloped(sloped);
-            }
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") && collision.gameObject.tag != "Slope") {
-                if (!_Player.IsGounded()) {
-                    if (collision.gameObject.tag != "Cloud") {
-                        _Player.OnBonk();
+            if (collision.gameObject.tag != "Balls 0.0") {
+                if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") && collision.gameObject.tag == "Slope") {
+                    sloped = true;
+                    _Player.Sloped(sloped);
+                }
+                if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") && collision.gameObject.tag != "Slope") {
+                    if (!_Player.IsGounded()) {
+                        if (collision.gameObject.tag != "Cloud") {
+                            _Player.OnBonk();
+                        }
                     }
                 }
+            } else {
+
+                _Player.HitPlayer(1.0f);
+                _Player.HitPower(7.5f, 1);
             }
         }
     }

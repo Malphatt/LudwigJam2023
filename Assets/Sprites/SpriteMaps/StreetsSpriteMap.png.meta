@@ -9398,6 +9398,106 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: StreetsSpriteMap_375
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 272
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -8, y: -8}
+        - {x: -8, y: 8}
+        - {x: 8, y: 8}
+        - {x: 8, y: -8}
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfcb6853c1f317b44afc897215e17864
+      internalID: 1049188694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StreetsSpriteMap_376
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 272
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -8, y: -8}
+        - {x: -8, y: 8}
+        - {x: 8, y: 8}
+        - {x: 8, y: -8}
+      tessellationDetail: 0
+      bones: []
+      spriteID: b78282cf9e0415449b0a505734fb6508
+      internalID: 1740014200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StreetsSpriteMap_377
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 256
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -8, y: -8}
+        - {x: -8, y: 8}
+        - {x: 8, y: 8}
+        - {x: 8, y: -8}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ea2fef493ea5a1479d6b751c1115607
+      internalID: -2106970964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StreetsSpriteMap_378
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 256
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -8, y: -8}
+        - {x: -8, y: 8}
+        - {x: 8, y: 8}
+        - {x: 8, y: -8}
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7f76b6a2be27b7468ad4be41fa06636
+      internalID: -1486757596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -9479,6 +9579,7 @@ TextureImporter:
       StreetsSpriteMap_178: -2000314924
       StreetsSpriteMap_259: -421099528
       StreetsSpriteMap_291: -793401524
+      StreetsSpriteMap_378: -1486757596
       StreetsSpriteMap_348: 1502511254
       StreetsSpriteMap_322: 1289944449
       StreetsSpriteMap_63: 1402663490
@@ -9509,6 +9610,7 @@ TextureImporter:
       StreetsSpriteMap_253: 456206018
       StreetsSpriteMap_321: 1772287896
       StreetsSpriteMap_142: -331559844
+      StreetsSpriteMap_377: -2106970964
       StreetsSpriteMap_50: -2044255741
       StreetsSpriteMap_31: -1172200298
       StreetsSpriteMap_260: 1251964591
@@ -9541,6 +9643,7 @@ TextureImporter:
       StreetsSpriteMap_126: -42391328
       StreetsSpriteMap_296: -1598652672
       StreetsSpriteMap_230: -1868178080
+      StreetsSpriteMap_375: 1049188694
       StreetsSpriteMap_146: 652097776
       StreetsSpriteMap_111: -1740052690
       StreetsSpriteMap_358: 1960701649
@@ -9711,6 +9814,7 @@ TextureImporter:
       StreetsSpriteMap_93: 538565894
       StreetsSpriteMap_54: -1416640453
       StreetsSpriteMap_334: -1248086106
+      StreetsSpriteMap_376: 1740014200
       StreetsSpriteMap_290: 1636854696
       StreetsSpriteMap_48: -1403903081
       StreetsSpriteMap_6: -1366465915
@@ -9741,8 +9845,8 @@ TextureImporter:
       StreetsSpriteMap_272: 1592590603
       StreetsSpriteMap_189: -517586322
       StreetsSpriteMap_81: 1003353665
-      StreetsSpriteMap_119: -1551812181
       StreetsSpriteMap_83: -1896642808
+      StreetsSpriteMap_119: -1551812181
       StreetsSpriteMap_150: -1352954138
       StreetsSpriteMap_105: 454492427
       StreetsSpriteMap_198: 1927271477
