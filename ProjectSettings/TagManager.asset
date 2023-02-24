@@ -8,6 +8,7 @@ TagManager:
   - Balls 0.0
   - Zone
   - Cloud
+  - BallDeathPlane
   layers:
   - Default
   - TransparentFX

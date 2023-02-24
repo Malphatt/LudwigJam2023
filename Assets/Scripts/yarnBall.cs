@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class yarnBall : MonoBehaviour
 {
+
+    public Sprite[] YarnSprites;
+
+    void OnAwake() {
+        // Randomize Sprite
+        Random.Range(0, YarnSprites.Length);
+        GetComponent<SpriteRenderer>().sprite = YarnSprites[Random.Range(0, YarnSprites.Length)];
+    }
+
     //On collision with player
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -16,6 +25,16 @@ public class yarnBall : MonoBehaviour
 
         //If hit ball
         if (collision.gameObject.tag == "Balls 0.0")
+        {
+            //Fade away over 2 seconds
+            StartCoroutine(fadeAway(2));
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        //If hit DeathPlane
+        if (collision.gameObject.tag == "BallDeathPlane")
         {
             //Fade away over 2 seconds
             StartCoroutine(fadeAway(2));
@@ -52,6 +71,6 @@ public class yarnBall : MonoBehaviour
     void Update()
     {
         //Spin
-        transform.Rotate(0, 0, 100 * Time.deltaTime * GetComponent<Rigidbody2D>().velocity.magnitude);
+        transform.Rotate(0, 0, 10 * Time.deltaTime * GetComponent<Rigidbody2D>().velocity.magnitude);
     }
 }

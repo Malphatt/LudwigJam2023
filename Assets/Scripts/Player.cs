@@ -33,6 +33,8 @@ public class Player : MonoBehaviour {
     public bool jumping;
     bool jumpButtonRelease;
     bool jumped;
+
+    bool hit;
        
 
     void Awake() 
@@ -88,7 +90,7 @@ public class Player : MonoBehaviour {
         }
 
         //If walking, set animation controller, walking = true
-        if (!IsStationary())
+        if (!IsStationary() && !hit)
         {
             GetComponent<Animator>().SetBool("Walking", true);
         }
@@ -140,7 +142,7 @@ public class Player : MonoBehaviour {
         }
 
         if ((sloped && grounded) || (!sloped && grounded)) {
-            if (grounded && !jumping) {
+            if (grounded && !jumping && !hit) {
                 _rb.velocity = new Vector2(_moveDirection.x * speed, _rb.velocity.y);
             }
         }
@@ -172,19 +174,21 @@ public class Player : MonoBehaviour {
     }
 
     void Jump(bool jump) {
-        if (jump) {
-            if (grounded) {
-                if (!jumping) {
-                    grounded = false;
-                    jumping = true;
-                    jumpButtonRelease = false;
-                    jumped = false;
-                    _rb.velocity = new Vector2(0, _rb.velocity.y);
-                    startJumpTime = Time.time;
+        if (!hit) {
+            if (jump) {
+                if (grounded) {
+                    if (!jumping) {
+                        grounded = false;
+                        jumping = true;
+                        jumpButtonRelease = false;
+                        jumped = false;
+                        _rb.velocity = new Vector2(0, _rb.velocity.y);
+                        startJumpTime = Time.time;
+                    }
                 }
+            } else {
+                jumpButtonRelease = true;
             }
-        } else {
-            jumpButtonRelease = true;
         }
     }
 
@@ -233,6 +237,23 @@ public class Player : MonoBehaviour {
 
     public void Sloped(bool sloped) {
         this.sloped = sloped;
+    }
+
+    public void HitPlayer(float timeDisabled) {
+        // Disable player movement for timeDisabled seconds
+        // prevent player from jumping or moving
+        hit = true;
+        Invoke("recoverPlayer", timeDisabled);
+    }
+
+    public void HitPower(float power, float direction) {
+        // Apply force to player in direction
+        // direction = 1 for right, -1 for left
+        _rb.velocity = new Vector2(power * direction, _rb.velocity.y);
+    }
+
+    void recoverPlayer() {
+        hit = false;
     }
 
     float convertJumpPower(float normalisedJumpTime) {
