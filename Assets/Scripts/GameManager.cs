@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public GameObject head;
     public GameObject progressBar;
     private bool zone8reached;
+    public GameObject Text;
     
     // Input
     public PlayerInput _PlayerInput;
@@ -106,6 +107,32 @@ public class GameManager : MonoBehaviour
                 zone8reached = true;
             }
 
+        }
+
+        //Update the text mesh pro depending on how much time has accumulated in minutes
+        if (accumulatedTime / 60 > 7)
+        {
+            Text.GetComponent<TextMeshProUGUI>().text = "Let's gooooo! Coots, already climbing up to chill with me within seven minutes of the stream starting! That's what I call a good start to the day!";
+        }
+        else if (accumulatedTime / 60 > 10)
+        {
+            Text.GetComponent<TextMeshProUGUI>().text = "Oh, Coots is here. That was pretty fast. I've seen him get here faster though\"\r\n";
+        }
+        else if (accumulatedTime / 60 > 15)
+        {
+            Text.GetComponent<TextMeshProUGUI>().text = "Hey, look who decided to grace us with their presence. Coots finally made it up here.";
+        }
+        else if (accumulatedTime / 60 > 20)
+        {
+            Text.GetComponent<TextMeshProUGUI>().text = "Well, it took Coots long enough, but I guess they finally decided to join the stream. This was only supposed to take 10 minutes";
+        }
+        else if (accumulatedTime / 60 > 25)
+        {
+            Text.GetComponent<TextMeshProUGUI>().text = "Oh, Coots finally made it up here. I was starting to think they forgot who feeds them. This was only supposed to take 10 minutes";
+        }
+        else
+        {
+            Text.GetComponent<TextMeshProUGUI>().text = "Wow you got up here fast coots! Are you some kind of jump king or something?";
         }
     }
 }
