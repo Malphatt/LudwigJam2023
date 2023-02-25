@@ -14,6 +14,11 @@ public class Player : MonoBehaviour {
 
     public GameObject mainCamera;
     private GameObject currentZone;
+
+    //SFX
+    public AudioSource jumpsfx;
+    public AudioSource bonksfx;
+    
     private GameObject previousZone;
 
     // Rigidbody and Colliders
@@ -156,6 +161,8 @@ public class Player : MonoBehaviour {
                             jumped = true;
                             float jumpTimeNormalised = (Time.time - startJumpTime) / maxHoldTime; // Normalise the time to 0-1
                             float jumpHoldPower = convertJumpPower(jumpTimeNormalised) * jumpPower;
+                            //Play jump sfx
+                            jumpsfx.Play();
                             _rb.velocity = new Vector2(jumpHoldPower * _moveDirection.x, jumpHoldPower * 2.0f);
                         } else {
                             jumped = true;
@@ -211,6 +218,7 @@ public class Player : MonoBehaviour {
 
     public void OnBonk() {
         _rb.velocity = new Vector2(-_rb.velocity.x/2, _rb.velocity.y/2);
+        bonksfx.Play();
     }
 
     public void OnLand() {

@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     private blinkPlatform[] blinkPlatforms;
     public int zoneCount;
     public GameObject head;
+    public GameObject progressBar;
+    private bool zone8reached;
     
     // Input
     public PlayerInput _PlayerInput;
@@ -56,11 +58,30 @@ public class GameManager : MonoBehaviour
         //Get last character of zone name
         zoneCount = int.Parse(zone.name[zone.name.Length - 1].ToString());
         head.GetComponent<RectTransform>().position = new Vector3(head.transform.position.x, 115*zoneCount + 70, 0);
-        
-        accumulatedTime += Time.deltaTime;
-        //Format time in 00:00:00:00
-        timer.GetComponent<TextMeshProUGUI>().text = string.Format("{0:00}:{1:00}:{2:00}", accumulatedTime / 3600, (accumulatedTime % 3600) / 60, (accumulatedTime % 60));
 
+        //Update timer unless menu is open or zone is 8
+        if (!menu.activeSelf && zoneCount != 8)
+        {
+            accumulatedTime += Time.deltaTime;
+            //Format time in 00:00:00
+            string minutes = Mathf.Floor(accumulatedTime / 60).ToString("00");
+            string seconds = (accumulatedTime % 60).ToString("00");
+
+            timer.GetComponent<TextMeshProUGUI>().text = string.Format("{0}:{1}", minutes, seconds);
+
+
+            //Enable progress bar and head
+            head.SetActive(true);
+            progressBar.SetActive(true);
+        }
+        else
+        {
+            //Disable progress bar and head
+            head.SetActive(false);
+            progressBar.SetActive(false);
+        }
+
+        
         //Every second call function
         if (accumulatedTime % 2 < Time.deltaTime)
         {
@@ -74,8 +95,17 @@ public class GameManager : MonoBehaviour
         //Every 16 seconds
         if (accumulatedTime % 16 < Time.deltaTime)
         {
-            //Play zone's audio source
-            zone.GetComponent<AudioSource>().Play();
+            if (!zone8reached)
+            {
+                //Play zone's audio source
+                zone.GetComponent<AudioSource>().Play();
+            }
+            
+            if (zoneCount == 8)
+            {
+                zone8reached = true;
+            }
+
         }
     }
 }
