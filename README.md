@@ -1,16 +1,13 @@
 # LudwigJam2023
 Jump Coots is a Jump King inspired game featuring the lovable Coots the cat!
  
-  Programmers:
- 
-    Alex "Dicko" Dickinson
+Programmers:
+* [Alex "Dicko" Dickinson](https://github.com/DickinsonAlex)
+* [Matthew "Malphatt" Freeman](https://github.com/Malphatt)
   
-    Matthew "Malphatt" Freeman
-  
-  Art:
- 
-    Alex "Dicko" Dickinson
-    
-  Level Design
-  
-    Matthew "Malphatt" Freeman
+Art:
+* [Alex "Dicko" Dickinson](https://github.com/DickinsonAlex)
+
+
+Level Design:
+* [Matthew "Malphatt" Freeman](https://github.com/Malphatt)
