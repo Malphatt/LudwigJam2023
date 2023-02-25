@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
 
         //Get last character of zone name
         zoneCount = int.Parse(zone.name[zone.name.Length - 1].ToString());
-        head.GetComponent<RectTransform>().position = new Vector3(head.transform.position.x, 115*zoneCount + 70, 0);
+        head.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 115*(zoneCount-4), 0);
 
         //Update timer unless menu is open or zone is 8
         if (!menu.activeSelf && zoneCount != 8)
