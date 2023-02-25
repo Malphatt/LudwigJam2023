@@ -7,7 +7,7 @@ public class yarnBall : MonoBehaviour
 
     public Sprite[] YarnSprites;
 
-    void OnAwake() {
+    void Start() {
         // Randomize Sprite
         Random.Range(0, YarnSprites.Length);
         GetComponent<SpriteRenderer>().sprite = YarnSprites[Random.Range(0, YarnSprites.Length)];
