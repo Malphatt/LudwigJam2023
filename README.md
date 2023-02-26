@@ -1,4 +1,4 @@
-# LudwigJam2023
+# Jump Coots
 Jump Coots is a Jump King inspired game featuring the lovable Coots the cat!
  
 Programmers:
