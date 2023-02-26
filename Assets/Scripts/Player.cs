@@ -170,6 +170,7 @@ public class Player : MonoBehaviour {
                 } else { // If the jump button is held for more than the max hold time
                     if (groundCheck()) {
                         jumped = true;
+                        jumpsfx.Play();
                         _rb.velocity = new Vector2(jumpPower * _moveDirection.x, jumpPower * 2.0f);
                     } else {
                         jumped = true;
